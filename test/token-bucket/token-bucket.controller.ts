@@ -2,7 +2,7 @@ import { Controller, Get, Inject } from "@nestjs/common";
 import {
   TokenBucketCapacity,
   TokenBucketCost,
-  TokenBucketDefault,
+  TokenBucketRegular,
   TokenBucketRefill,
   TokenBucketTimeout
 } from "./token-bucket.worker";
@@ -10,7 +10,7 @@ import {
 @Controller('token-bucket')
 export class TokenBucketController {
   @Inject()
-  private readonly tokenBucketWorker: TokenBucketDefault;
+  private readonly tokenBucketWorker: TokenBucketRegular;
 
   @Inject()
   private readonly tokenBucketCapacity: TokenBucketCapacity;
@@ -23,6 +23,7 @@ export class TokenBucketController {
 
   @Inject()
   private readonly tokenBucketCost: TokenBucketCost;
+  private static counter = 0;
 
   @Get("regular")
   regular(): string {

@@ -1,27 +1,29 @@
-import { UseLimit } from "src/decorators";
+import { UseCustomLimit, UseLimit } from "src/decorators";
 import { RateLimitation } from "src/types";
 
 @UseLimit({
   limitation: RateLimitation.TOKEN_BUCKET
 })
-export class TokenBucketDefault {
+export class TokenBucketRegular {
   regular(): string {
     return "regular";
   }
 }
 
 @UseLimit({
-  limitation: RateLimitation.FIXED_WINDOW,
+  limitation: RateLimitation.TOKEN_BUCKET,
   capacity: 10,
 })
 export class TokenBucketCapacity {
+  static counter = 0;
   capacity(): string {
+    console.log(++TokenBucketCapacity.counter)
     return "capacity";
   }
 }
 
 @UseLimit({
-  limitation: RateLimitation.FIXED_WINDOW,
+  limitation: RateLimitation.TOKEN_BUCKET,
   refill: 1000,
 })
 export class TokenBucketRefill {
@@ -31,7 +33,7 @@ export class TokenBucketRefill {
 }
 
 @UseLimit({
-  limitation: RateLimitation.FIXED_WINDOW,
+  limitation: RateLimitation.TOKEN_BUCKET,
   timeout: 1000,
 })
 export class TokenBucketTimeout {

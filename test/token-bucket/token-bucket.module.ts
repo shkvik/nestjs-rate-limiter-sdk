@@ -3,14 +3,14 @@ import { TokenBucketController } from "./token-bucket.controller";
 import { 
   TokenBucketCapacity, 
   TokenBucketCost, 
-  TokenBucketDefault, 
+  TokenBucketRegular, 
   TokenBucketRefill, 
   TokenBucketTimeout
 } from "./token-bucket.worker";
 
 @Module({
   providers: [
-    TokenBucketDefault,
+    TokenBucketRegular,
     TokenBucketCapacity,
     TokenBucketRefill,
     TokenBucketTimeout,
