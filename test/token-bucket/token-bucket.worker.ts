@@ -32,7 +32,9 @@ export class TokenBucketRefill {
 
 @UseLimit({
   limitation: RateLimitation.TOKEN_BUCKET,
-  timeout: 1000,
+  capacity: 1,
+  refill: 1000,
+  timeout: 100,
 })
 export class TokenBucketTimeout {
   timeout(): string {
@@ -44,7 +46,7 @@ export class TokenBucketTimeout {
   limitation: RateLimitation.TOKEN_BUCKET
 })
 export class TokenBucketCost {
-  @UseCustomLimit({ cost: 100 })
+  @UseCustomLimit({ cost: 50 })
   cost(): string {
     return "cost";
   }
