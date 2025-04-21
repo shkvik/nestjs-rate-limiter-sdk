@@ -23,7 +23,6 @@ export class TokenBucketController {
 
   @Inject()
   private readonly tokenBucketCost: TokenBucketCost;
-  private static counter = 0;
 
   @Get("regular")
   regular(): string {

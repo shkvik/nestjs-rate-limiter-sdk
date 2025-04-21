@@ -15,9 +15,7 @@ export class TokenBucketRegular {
   capacity: 10,
 })
 export class TokenBucketCapacity {
-  static counter = 0;
   capacity(): string {
-    console.log(++TokenBucketCapacity.counter)
     return "capacity";
   }
 }

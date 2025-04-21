@@ -28,6 +28,9 @@ import {
 
 const RATE_LIMITER_CLIENT = Symbol("RATE_LIMITER_CLIENT");
 
+/**
+ * @publicApi
+ */
 @Global()
 @Module({
   imports: [DiscoveryModule],
@@ -243,9 +246,6 @@ export class LimiterModule implements OnApplicationShutdown, OnModuleInit {
     const name =
       metadataCls?.key ?? `nestjs-ratelimiter:${provider.constructor.name}`;
 
-    const overflow =
-      metadataMethod?.overflow ?? metadataCls?.overflow ?? LimitOverflow.WAIT;
-
     const interval = metadataMethod?.interval ?? metadataCls?.interval ?? 1000;
 
     descriptor.value = async (...args: unknown[]) => {
@@ -257,7 +257,7 @@ export class LimiterModule implements OnApplicationShutdown, OnModuleInit {
       )) as string;
       const parsedDelay = Number(delay);
       this.logger.debug(delay);
-      if (parsedDelay > 0 && overflow === LimitOverflow.REJECT) {
+      if (parsedDelay > 0) {
         throw new LimiterException(`queue is overflowed`);
       }
       await new Promise((res) => setTimeout(res, Number(delay)));
